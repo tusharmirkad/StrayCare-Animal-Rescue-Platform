@@ -45,7 +45,7 @@ const NgoSidebar = () => {
           {/* LOGOUT BUTTON */}
           <button
             onClick={() => setShowLogout(true)}
-            className=" text-red-600  mt-6 hover:text-red-700 transition text-lg"
+            className=" text-red-600  mt-6 hover:text-red-700 transition text-lg cursor-pointer"
           >
             Logout
           </button>
@@ -54,9 +54,9 @@ const NgoSidebar = () => {
 
       {/* LOGOUT CONFIRMATION MODAL */}
       {showLogout && (
-        <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
-          <div className="bg-white p-6 rounded-xl shadow-lg w-80 text-center">
-            <h2 className="text-xl font-semibold text-gray-800 mb-4">
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex justify-center items-center z-50 transition">
+          <div className="bg-white p-6 rounded-xl shadow-xl w-80 text-center animate-fadeIn">
+            <h2 className="text-xl font-semibold text-gray-800 mb-4 cursor-pointer">
               Confirm Logout
             </h2>
             <p className="text-gray-600 mb-6">
@@ -66,14 +66,14 @@ const NgoSidebar = () => {
             <div className="flex gap-4">
               <button
                 onClick={() => setShowLogout(false)}
-                className="flex-1 border border-gray-300 py-2 rounded-md"
+                className="flex-1 border border-gray-300 py-2 rounded-md hover:bg-gray-100 transition cursor-pointer"
               >
                 Cancel
               </button>
 
               <button
                 onClick={confirmLogout}
-                className="flex-1 bg-red-600 text-white py-2 rounded-md hover:bg-red-700"
+                className="flex-1 bg-red-600 text-white py-2 rounded-md hover:bg-red-700 transition cursor-pointer"
               >
                 Logout
               </button>

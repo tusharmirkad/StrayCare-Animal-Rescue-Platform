@@ -1,11 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaPaw, FaMapMarkerAlt, FaCamera, FaArrowRight } from "react-icons/fa";
 import heroImg from "../assets/image1.png";
 import AboutImg from "../assets/newHero.png";
 import Navbar from "../components/navbar";
 
 const LandingPage = () => {
+  const navigate = useNavigate
   return (
     <div className="w-full min-h-screen bg-gray-50">
       <Navbar />
@@ -59,10 +60,10 @@ const LandingPage = () => {
           </h3>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-gray-100 p-8 rounded-lg shadow hover:shadow-lg transition text-center">
+            <div onClick={() => navigate('/ReportIncident')} className="bg-gray-100 p-8 rounded-lg shadow hover:shadow-lg transition text-center">
               <FaCamera className="text-green-700 text-5xl mx-auto mb-4" />
               <h4 className="text-xl font-semibold text-gray-800">
-                <Link href="/ReportIncident">ReportIncident</Link>
+                Report Incident
               </h4>
               <p className="text-gray-600 mt-2">
                 Capture a clear picture of the injured animal.
@@ -126,8 +127,8 @@ const LandingPage = () => {
         <div className="max-w-7xl mx-auto px-6 flex justify-between">
           <p>© 2025 StrayCare. All rights reserved.</p>
           <div className="space-x-6">
-            <Link to="/privacy">Privacy Policy</Link>
-            <Link to="/terms">Terms</Link>
+            <Link to="/">Privacy Policy</Link>
+            <Link to="/">Terms</Link>
             <Link to="/contact">Contact</Link>
           </div>
         </div>

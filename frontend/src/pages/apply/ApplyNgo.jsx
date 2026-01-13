@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import { useUser } from "@clerk/clerk-react";
 import Navbar from "../../components/navbar";
+import useApi from "../../utils/api";
+import { useNavigate } from "react-router-dom";
+
 
 const ApplyNgo = () => {
+  const api = useApi();
+  const navigate = useNavigate();
+
   const { user } = useUser(); // <-- FIXED hook location
 
   const [form, setForm] = useState({
@@ -22,12 +28,45 @@ const ApplyNgo = () => {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    const fd = new FormData();
+    fd.append("ngoName", form.ngoName);
+    fd.append("phone", form.phone);
+    fd.append("city", form.city);
+    fd.append("address", form.address);
+    fd.append("description", form.description);
+
+    if (form.document) {
+      fd.append("document", form.document);
+    }
+
+    await api.post("/ngo/apply", fd);
+
+    alert("Your NGO application has been submitted successfully!");
+
+    // reset form
+    setForm({
+      ngoName: "",
+      phone: "",
+      city: "",
+      address: "",
+      description: "",
+      document: null,
+    });
+
+    navigate("/ngo/pending-approval", { replace: true });
+
+  } catch (error) {
+    console.error("Apply NGO error:", error);
     alert(
-      "Your NGO application has been submitted! Admin will review it soon."
+      error.response?.data?.message || "Failed to submit NGO application"
     );
-  };
+  }
+};
+
 
   return (
     <>

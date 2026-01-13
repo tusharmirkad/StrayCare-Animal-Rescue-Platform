@@ -1,9 +1,134 @@
-import React from "react";
+// import React from "react";
+// import NgoSidebar from "../../components/ngo/NgoSidebar";
+// import NgoTopbar from "../../components/ngo/NgoTopbar";
+// import { acceptedRequests } from "../../data/ngoRequests";
+
+// const AcceptedRequests = () => {
+//   return (
+//     <div className="flex">
+//       <NgoSidebar />
+
+//       <div className="flex-1 bg-gray-50 p-4 min-h-screen">
+//         <NgoTopbar />
+
+//         <h1 className="text-3xl font-bold text-green-700 mb-6">
+//           Accepted Requests
+//         </h1>
+
+//         {acceptedRequests.length === 0 ? (
+//           <p className="text-gray-600">No accepted requests yet.</p>
+//         ) : (
+//           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+//             {acceptedRequests.map((r) => (
+//               <div
+//                 key={r.id}
+//                 className="bg-white shadow rounded-lg p-4 hover:shadow-lg transition"
+//               >
+//                 {/* Image */}
+//                 <img
+//                   src={r.photo}
+//                   alt={r.animal}
+//                   className="w-full h-48 object-cover rounded-md"
+//                 />
+
+//                 {/* Animal Name */}
+//                 <h2 className="text-xl font-bold mt-3">{r.animal}</h2>
+
+//                 {/* Severity */}
+//                 <p>
+//                   <strong>Severity:</strong>{" "}
+//                   <span
+//                     className={
+//                       r.severity === "High"
+//                         ? "text-red-600"
+//                         : r.severity === "Medium"
+//                         ? "text-yellow-600"
+//                         : "text-green-600"
+//                     }
+//                   >
+//                     {r.severity}
+//                   </span>
+//                 </p>
+
+//                 {/* Location */}
+//                 <p>
+//                   <strong>Location:</strong> {r.location}
+//                 </p>
+
+//                 {/* Volunteer Assigned */}
+//                 <p>
+//                   <strong>Assigned To:</strong> {r.assignedTo}
+//                 </p>
+
+//                 {/* Current Status */}
+//                 <p>
+//                   <strong>Status:</strong> {r.status}
+//                 </p>
+
+//                 {/* Time */}
+//                 <p className="text-gray-500 text-sm mt-1">{r.time}</p>
+
+//                 {/* Action Buttons */}
+//                 <div className="flex gap-3 mt-4">
+//                   <button className="flex-1 bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700">
+//                     Update Status
+//                   </button>
+
+//                   <button className="flex-1 bg-green-700 text-white py-2 rounded-md hover:bg-green-800">
+//                     Mark Completed
+//                   </button>
+//                 </div>
+//               </div>
+//             ))}
+//           </div>
+//         )}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default AcceptedRequests;
+
+import React, { useEffect, useState } from "react";
 import NgoSidebar from "../../components/ngo/NgoSidebar";
 import NgoTopbar from "../../components/ngo/NgoTopbar";
-import { acceptedRequests } from "../../data/ngoRequests";
+import useApi from "../../utils/api.js";
 
 const AcceptedRequests = () => {
+  const api = useApi();
+
+  const [requests, setRequests] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch accepted requests for logged-in NGO
+  useEffect(() => {
+    const fetchAccepted = async () => {
+      try {
+        const res = await api.get("/ngo/requests/accepted");
+        setRequests(res.data);
+      } catch (error) {
+        console.error("Accepted fetch error:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAccepted();
+  }, []);
+
+  // Mark a request as completed
+  const handleComplete = async (id) => {
+    try {
+      await api.put(`/ngo/requests/${id}/complete`);
+
+      setRequests((prev) => prev.filter((r) => r._id !== id));
+      alert("Request marked as completed");
+    } catch (error) {
+      console.error("Error completing request:", error);
+      alert("Error completing request");
+    }
+  };
+
   return (
     <div className="flex">
       <NgoSidebar />
@@ -15,24 +140,26 @@ const AcceptedRequests = () => {
           Accepted Requests
         </h1>
 
-        {acceptedRequests.length === 0 ? (
+        {loading ? (
+          <p className="text-gray-600">Loading...</p>
+        ) : requests.length === 0 ? (
           <p className="text-gray-600">No accepted requests yet.</p>
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {acceptedRequests.map((r) => (
+            {requests.map((r) => (
               <div
-                key={r.id}
+                key={r._id}
                 className="bg-white shadow rounded-lg p-4 hover:shadow-lg transition"
               >
                 {/* Image */}
                 <img
-                  src={r.photo}
-                  alt={r.animal}
+                  src={`http://localhost:5000${r.imageUrl}`}
+                  alt={r.animalType}
                   className="w-full h-48 object-cover rounded-md"
                 />
 
-                {/* Animal Name */}
-                <h2 className="text-xl font-bold mt-3">{r.animal}</h2>
+                {/* Animal */}
+                <h2 className="text-xl font-bold mt-3">{r.animalType}</h2>
 
                 {/* Severity */}
                 <p>
@@ -52,29 +179,32 @@ const AcceptedRequests = () => {
 
                 {/* Location */}
                 <p>
-                  <strong>Location:</strong> {r.location}
+                  <strong>Location:</strong> {r.location?.address}
                 </p>
 
-                {/* Volunteer Assigned */}
-                <p>
-                  <strong>Assigned To:</strong> {r.assignedTo}
-                </p>
-
-                {/* Current Status */}
+                {/* Status */}
                 <p>
                   <strong>Status:</strong> {r.status}
                 </p>
 
                 {/* Time */}
-                <p className="text-gray-500 text-sm mt-1">{r.time}</p>
+                <p className="text-gray-500 text-sm mt-1">
+                  {new Date(r.updatedAt).toLocaleString()}
+                </p>
 
                 {/* Action Buttons */}
                 <div className="flex gap-3 mt-4">
-                  <button className="flex-1 bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700">
+                  <button
+                    className="flex-1 bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
+                    onClick={() => alert("Status update popup coming soon")}
+                  >
                     Update Status
                   </button>
 
-                  <button className="flex-1 bg-green-700 text-white py-2 rounded-md hover:bg-green-800">
+                  <button
+                    onClick={() => handleComplete(r._id)}
+                    className="flex-1 bg-green-700 text-white py-2 rounded-md hover:bg-green-800"
+                  >
                     Mark Completed
                   </button>
                 </div>

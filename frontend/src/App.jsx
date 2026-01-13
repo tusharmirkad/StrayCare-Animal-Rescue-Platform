@@ -25,6 +25,7 @@ import NgoPendingApproval from "./pages/apply/NgoPendingApproval";
 // PROTECTED ROUTES
 import NgoProtected from "./components/protected/NgoProtected";
 import AdminProtected from "./components/protected/AdminProtected";
+import UserProtected from "./components/protected/UserProtected";
 
 // Role REDIRECTING
 import { SignedIn } from "@clerk/clerk-react";
@@ -44,8 +45,22 @@ function App() {
       <Routes>
         {/* USER ROUTES */}
         <Route path="/" element={<LandingPage />} />
-        <Route path="/ReportIncident" element={<ReportIncident />} />
-        <Route path="/my-reports" element={<MyReports />} />
+        <Route
+          path="/ReportIncident"
+          element={
+            <UserProtected>
+              <ReportIncident />
+            </UserProtected>
+          }
+        />
+        <Route
+          path="/my-reports"
+          element={
+            <UserProtected>
+              <MyReports />
+            </UserProtected>
+          }
+        />
         <Route path="/ngos" element={<NGOs />} />
         <Route path="/contact" element={<Contact />} />
 
