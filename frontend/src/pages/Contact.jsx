@@ -7,7 +7,7 @@ import {
   FaInstagram,
   FaFacebook,
 } from "react-icons/fa";
-import Navbar from "../components/navbar";
+import Navbar from "../components/navbar.jsx";
 
 const Contact = () => {
   return (

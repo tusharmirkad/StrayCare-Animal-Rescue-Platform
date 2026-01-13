@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaPaw, FaMapMarkerAlt, FaCamera, FaArrowRight } from "react-icons/fa";
 import heroImg from "../assets/image1.png";
 import AboutImg from "../assets/newHero.png";
-import Navbar from "../components/Navbar.jsx";
+import Navbar from "../components/navbar.jsx";
 
 const LandingPage = () => {
   const navigate = useNavigate

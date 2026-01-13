@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaCamera, FaMapMarkerAlt } from "react-icons/fa";
-import Navbar from "../components/navbar";
+import Navbar from "../components/navbar.jsx";
 import useApi from "../utils/api";
 
 import { useUser } from "@clerk/clerk-react";
