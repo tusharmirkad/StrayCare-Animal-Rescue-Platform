@@ -11,18 +11,18 @@ import {
 const router = express.Router();
 
 // USER creates rescue request
-router.post("/create", requireAuth, createRescue);
+router.post("/create", createRescue);
 
 // NGO gets pending requests
-router.get("/pending", requireAuth, getPendingRescues);
+router.get("/pending", getPendingRescues);
 
 // NGO accepts rescue
-router.put("/accept/:id", requireAuth, acceptRescue);
+router.put("/accept/:id", acceptRescue);
 
 // NGO updates status
-router.put("/status/:id", requireAuth, updateStatus);
+router.put("/status/:id", updateStatus);
 
 // ADMIN fetch all
-router.get("/all", requireAuth, getAllRescues);
+router.get("/all", getAllRescues);
 
 export default router;
