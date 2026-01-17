@@ -17,7 +17,10 @@ export const createReport = async (req, res) => {
     // ✅ CLERK USER ID (CORRECT)
     const reporterId = req.auth.userId;
 
-   const imageUrl = `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`;
+   const imageUrl = req.file
+  ? `${req.protocol}://${req.get("host")}/uploads/${req.file.filename}`
+  : null;
+
 
     const report = await Report.create({
       reporterId,
