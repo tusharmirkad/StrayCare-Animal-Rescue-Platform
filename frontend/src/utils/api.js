@@ -5,7 +5,7 @@ const useApi = () => {
   const { getToken } = useAuth();
 
   const api = axios.create({
-    baseURL: "http://localhost:5000/api", // ✅ IMPORTANT
+    baseURL: "https://straycare-animal-rescue-platform.onrender.com/api", // ✅ IMPORTANT
   });
 
   api.interceptors.request.use(async (config) => {
