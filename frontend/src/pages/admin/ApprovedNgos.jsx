@@ -13,7 +13,7 @@ const ApprovedNgos = () => {
   useEffect(() => {
     const fetchApproved = async () => {
       try {
-        const res = await api.get("/admin/approved-ngos");
+        const res = await api.get("/api/admin/approved-ngos");
         setNgos(res.data);
       } catch (err) {
         console.error("Error fetching approved NGOs:", err);
