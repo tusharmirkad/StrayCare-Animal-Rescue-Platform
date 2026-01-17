@@ -44,7 +44,7 @@ const RescueRequestsAdmin = () => {
     if (!window.confirm("Reject this rescue report?")) return;
 
     try {
-      await api.patch(`/rescue/${id}/status`, {
+      await api.patch(`/api/rescue/${id}/status`, {
         status: "rejected",
       });
 
