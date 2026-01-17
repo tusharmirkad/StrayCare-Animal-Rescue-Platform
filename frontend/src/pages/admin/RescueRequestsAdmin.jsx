@@ -5,7 +5,7 @@ import  useApi  from "../../utils/api";
 
 const RescueRequestsAdmin = () => {
 
-
+  const api = useApi();
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
