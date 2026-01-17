@@ -92,7 +92,7 @@ const CompletedRequests = () => {
   useEffect(() => {
     const fetchCompleted = async () => {
       try {
-        const res = await api.get("/ngo/requests/completed");
+        const res = await api.get("/api/ngo/requests/completed");
 
         setRequests(res.data);
       } catch (error) {
