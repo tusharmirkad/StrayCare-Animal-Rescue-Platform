@@ -3,6 +3,10 @@ import Report from "../models/Report.js";
 // ================= CREATE REPORT =================
 export const createReport = async (req, res) => {
   try {
+    if (!req.auth?.userId) {
+  return res.status(401).json({ message: "Unauthorized" });
+}
+
     const {
       animalType,
       description,
@@ -49,6 +53,10 @@ export const createReport = async (req, res) => {
 // ================= GET MY REPORTS =================
 export const getMyReports = async (req, res) => {
   try {
+    if (!req.auth?.userId) {
+  return res.status(401).json({ message: "Unauthorized" });
+}
+
     // ✅ CLERK USER ID
     const userId = req.auth.userId;
 
