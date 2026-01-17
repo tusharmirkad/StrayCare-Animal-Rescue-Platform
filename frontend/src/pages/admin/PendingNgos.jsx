@@ -13,7 +13,7 @@ const PendingNgos = () => {
   useEffect(() => {
     const fetchPending = async () => {
       try {
-        const res = await api.get("/admin/pending-ngos");
+        const res = await api.get("/api/admin/pending-ngos");
         setApplications(res.data);
       } catch (err) {
         console.error("Error fetching pending NGOs:", err);
