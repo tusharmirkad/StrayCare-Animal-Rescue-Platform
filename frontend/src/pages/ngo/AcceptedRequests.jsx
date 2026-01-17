@@ -104,7 +104,7 @@ const AcceptedRequests = () => {
   useEffect(() => {
     const fetchAccepted = async () => {
       try {
-        const res = await api.get("/ngo/requests/accepted");
+        const res = await api.get("/api/ngo/requests/accepted");
         setRequests(res.data);
       } catch (error) {
         console.error("Accepted fetch error:", error);
@@ -119,7 +119,7 @@ const AcceptedRequests = () => {
   // Mark a request as completed
   const handleComplete = async (id) => {
     try {
-      await api.put(`/ngo/requests/${id}/complete`);
+      await api.put(`/api/ngo/requests/${id}/complete`);
 
       setRequests((prev) => prev.filter((r) => r._id !== id));
       alert("Request marked as completed");
