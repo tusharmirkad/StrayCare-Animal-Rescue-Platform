@@ -22,10 +22,10 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const statsRes = await api.get("/admin/stats");
+        const statsRes = await api.get("/api/admin/stats");
         setStats(statsRes.data);
 
-        const pendingRes = await api.get("/admin/pending-ngos");
+        const pendingRes = await api.get("/api/admin/pending-ngos");
         setPendingNgos(pendingRes.data);
       } catch (err) {
         console.log("Admin dashboard error:", err);
