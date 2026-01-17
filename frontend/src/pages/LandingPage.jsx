@@ -6,7 +6,7 @@ import AboutImg from "../assets/newHero.png";
 import Navbar from "../components/navbar.jsx";
 
 const LandingPage = () => {
-  const navigate = useNavigate
+  const navigate = useNavigate() ;
   return (
     <div className="w-full min-h-screen bg-gray-50">
       <Navbar />
