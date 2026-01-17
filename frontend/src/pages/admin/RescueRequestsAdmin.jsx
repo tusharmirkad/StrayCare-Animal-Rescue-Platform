@@ -14,7 +14,7 @@ const RescueRequestsAdmin = () => {
   useEffect(() => {
     const loadRequests = async () => {
       try {
-        const res = await api.get("/admin/rescue-requests");
+        const res = await api.get("/api/admin/rescue-requests");
         setRequests(res.data);
       } catch (err) {
         console.error("Error loading rescue requests:", err);
