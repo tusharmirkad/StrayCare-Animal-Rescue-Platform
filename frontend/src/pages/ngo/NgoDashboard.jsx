@@ -201,7 +201,7 @@ const NgoDashboard = () => {
     
     const fetchStats = async () => {
   try {
-    const res = await api.get("/ngo/dashboard-stats");
+    const res = await api.get("/api/ngo/dashboard-stats");
     setStats(res.data);
   } catch (ex) {
     console.error("Dashboard fetch error:", ex);
