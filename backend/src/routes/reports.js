@@ -8,18 +8,18 @@ import { upload } from "../middlewares/upload.js";
 const router = express.Router();
 
 // Create (multipart/form-data with image)
-router.post("/", requireAuth, upload.single("image"), createReport);
+router.post("/", upload.single("image"), createReport);
 
 // List my reports
-router.get("/me", requireAuth, getMyReports);
+router.get("/me", getMyReports);
 
 // Get single
-router.get("/:id", requireAuth, getReport);
+router.get("/:id", getReport);
 
 // Update status (admin/ngo future)
-router.patch("/:id/status", requireAuth, updateReportStatus);
+router.patch("/:id/status", updateReportStatus);
 
 // Delete
-router.delete("/:id", requireAuth, deleteReport);
+router.delete("/:id", deleteReport);
 
 export default router;
