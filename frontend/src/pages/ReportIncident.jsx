@@ -60,7 +60,7 @@ const { user } = useUser();
 
     if (imageFile) fd.append("image", imageFile);
 
-    const res = await api.post("/reports", fd, {
+    const res = await api.post("/api/reports", fd, {
       headers: { "Content-Type": "multipart/form-data" },
     });
 
