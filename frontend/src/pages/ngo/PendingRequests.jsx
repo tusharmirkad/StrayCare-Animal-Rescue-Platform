@@ -96,7 +96,7 @@ const PendingRequests = () => {
   useEffect(() => {
     const fetchPending = async () => {
       try {
-        const res = await api.get("/ngo/requests/pending"); // ✅ FULL PATH
+        const res = await api.get("/api/ngo/requests/pending"); // ✅ FULL PATH
         console.log("PENDING RESPONSE:", res.data);
         setRequests(res.data || []);
       } catch (error) {
@@ -111,7 +111,7 @@ const PendingRequests = () => {
 
   const handleAccept = async (id) => {
     try {
-      await api.put(`/ngo/requests/accept/${id}`);
+      await api.put(`/api/ngo/requests/accept/${id}`);
 
       // ✅ REMOVE accepted request from UI instantly
       setRequests(prev => prev.filter(r => r._id !== id))
