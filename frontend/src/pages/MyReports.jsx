@@ -17,7 +17,7 @@ const MyReports = () => {
   useEffect(() => {
     const fetchMyReports = async () => {
       try {
-        const res = await api.get("/reports/me");
+        const res = await api.get("/api/reports/me");
         setReports(res.data.data || []);
       } catch (err) {
         console.error("Fetch my reports error:", err);
