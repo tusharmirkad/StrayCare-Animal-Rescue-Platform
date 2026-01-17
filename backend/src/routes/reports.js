@@ -1,29 +1,25 @@
 import express from "express";
 import {
-  createReport,
-  getMyReports,
-  getReport,
-  updateReportStatus,
-  deleteReport
+  createReport, getMyReports, getReport, updateReportStatus, deleteReport
 } from "../controllers/reportController.js";
 import { requireAuth } from "../middlewares/auth.js";
 import { upload } from "../middlewares/upload.js";
 
 const router = express.Router();
 
-// ✅ Create report (PROTECTED)
+// Create (multipart/form-data with image)
 router.post("/", upload.single("image"), createReport);
 
-// ✅ List my reports (PROTECTED)
+// List my reports
 router.get("/me", getMyReports);
 
-// ✅ Get single report (PROTECTED)
+// Get single
 router.get("/:id", getReport);
 
-// ✅ Update status (PROTECTED – admin/ngo later)
+// Update status (admin/ngo future)
 router.patch("/:id/status", updateReportStatus);
 
-// ✅ Delete report (PROTECTED)
+// Delete
 router.delete("/:id", deleteReport);
 
 export default router;
