@@ -43,7 +43,7 @@ const ApplyNgo = () => {
       fd.append("document", form.document);
     }
 
-    await api.post("/ngo/apply", fd);
+    await api.post("/api/ngo/apply", fd);
 
     alert("Your NGO application has been submitted successfully!");
 
