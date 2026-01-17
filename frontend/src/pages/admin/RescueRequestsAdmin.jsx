@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import AdminSidebar from "../../components/admin/AdminSidebar";
 import AdminTopbar from "../../components/admin/AdminTopbar";
-import  useApi  from "../../utils/api";
+import useApi from "../../utils/api";
+
 
 const RescueRequestsAdmin = () => {
 
