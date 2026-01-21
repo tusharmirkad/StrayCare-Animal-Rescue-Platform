@@ -32,7 +32,7 @@ const NGOs = () => {
     const fetchNgos = async () => {
       try {
        console.log("Calling NGO API...");
-        const res = await api.get("/api/ngo");
+        const res = await api.get("/api/ngos");
         console.log("NGO RESPONSE:", res.data);
         setNgos(res.data || []);
       } catch (err) {
