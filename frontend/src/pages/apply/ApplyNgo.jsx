@@ -3,7 +3,7 @@ import { useUser } from "@clerk/clerk-react";
 import Navbar from "../../components/navbar";
 import useApi from "../../utils/api";
 import { useNavigate } from "react-router-dom";
-
+import { toast } from "react-toastify";
 
 const ApplyNgo = () => {
   const api = useApi();
@@ -44,8 +44,7 @@ const ApplyNgo = () => {
     }
 
     await api.post("/api/ngo/apply", fd);
-
-    alert("Your NGO application has been submitted successfully!");
+     toast.success("Your NGO application has been submitted successfully! ✅");
 
     // reset form
     setForm({
