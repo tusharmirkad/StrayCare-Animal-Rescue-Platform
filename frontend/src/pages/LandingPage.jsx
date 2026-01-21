@@ -4,9 +4,13 @@ import { FaPaw, FaMapMarkerAlt, FaCamera, FaArrowRight } from "react-icons/fa";
 import heroImg from "../assets/image1.png";
 import AboutImg from "../assets/newHero.png";
 import Navbar from "../components/navbar.jsx";
+import { toast } from "react-toastify";
 
 const LandingPage = () => {
   const navigate = useNavigate() ;
+  useEffect(() => {
+  toast.success("React Toastify is working 🚀");
+}, []);
   return (
     <div className="w-full min-h-screen bg-gray-50">
       <Navbar />
