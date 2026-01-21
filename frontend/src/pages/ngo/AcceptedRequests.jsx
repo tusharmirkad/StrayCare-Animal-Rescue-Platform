@@ -93,6 +93,7 @@ import React, { useEffect, useState } from "react";
 import NgoSidebar from "../../components/ngo/NgoSidebar";
 import NgoTopbar from "../../components/ngo/NgoTopbar";
 import useApi from "../../utils/api.js";
+import { toast } from "react-toastify";
 
 const AcceptedRequests = () => {
   const api = useApi();
@@ -122,10 +123,10 @@ const AcceptedRequests = () => {
       await api.put(`/api/ngo/requests/${id}/complete`);
 
       setRequests((prev) => prev.filter((r) => r._id !== id));
-      alert("Request marked as completed");
+          toast.success("Request marked as completed ✅");
     } catch (error) {
       console.error("Error completing request:", error);
-      alert("Error completing request");
+      toast.error("Error completing request ❌");
     }
   };
 
