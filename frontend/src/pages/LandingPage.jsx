@@ -5,6 +5,7 @@ import heroImg from "../assets/image1.png";
 import AboutImg from "../assets/newHero.png";
 import Navbar from "../components/navbar.jsx";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 const LandingPage = () => {
   const navigate = useNavigate() ;
