@@ -145,7 +145,11 @@ const PendingRequests = () => {
             console.log("IMAGE URL:", r.imageUrl);
               <div key={r._id} className="bg-white shadow rounded-lg p-4">
                 <img
-                   src={`https://straycare-animal-rescue-platform.onrender.com${r.imageUrl}`}
+                   src={
+                      r.imageUrl.startsWith("http")
+                        ? r.imageUrl
+                      : `https://straycare-animal-rescue-platform.onrender.com${r.imageUrl}`
+                    }
                   className="w-full h-48 object-cover rounded-md"
                 />
 
