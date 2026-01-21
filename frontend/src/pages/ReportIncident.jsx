@@ -189,7 +189,7 @@ const { user } = useUser();
               <div className="flex flex-col sm:flex-row sm:items-center gap-4">
                 <button
                   onClick={fetchLocation}
-                  className="flex items-center gap-2 bg-green-700 text-white px-4 py-2 rounded-md"
+                  className="flex items-center gap-2 bg-green-700 text-white px-4 py-2 rounded-md cursor-pointer"
                 >
                   <FaMapMarkerAlt /> Fetch My Location
                 </button>
@@ -227,7 +227,7 @@ const { user } = useUser();
             <div className="text-center pt-4">
               <button
                 onClick={handleSubmit}
-                className="bg-green-700 text-white w-full sm:w-1/2 py-3 rounded-md text-lg hover:bg-green-800 transition"
+                className="bg-green-700 text-white w-full sm:w-1/2 py-3 rounded-md text-lg hover:bg-green-800 transition cursor-pointer"
               >
                 Submit Report
               </button>
