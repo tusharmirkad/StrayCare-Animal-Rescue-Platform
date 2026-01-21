@@ -93,7 +93,7 @@ const PendingRequests = () => {
                   <button
                     type="button"
                     onClick={() => handleAccept(r._id)}
-                    className="mt-3 w-full bg-green-700 text-white py-2 rounded hover:bg-green-800"
+                    className="mt-3 w-full bg-green-700 text-white py-2 rounded hover:bg-green-800 cursor-pointer"
                   >
                     Accept
                   </button>
