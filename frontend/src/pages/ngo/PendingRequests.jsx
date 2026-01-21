@@ -144,7 +144,7 @@ const PendingRequests = () => {
             {requests.map((r) => (
               <div key={r._id} className="bg-white shadow rounded-lg p-4">
                 <img
-                  src={r.imageUrl}
+                   src={`https://straycare-animal-rescue-platform.onrender.com${r.imageUrl}`}
                   className="w-full h-48 object-cover rounded-md"
                 />
 
