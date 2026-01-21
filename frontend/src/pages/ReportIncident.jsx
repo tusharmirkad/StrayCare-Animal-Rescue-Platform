@@ -68,6 +68,20 @@ const { user } = useUser();
      toast.success("Report Submitted Successfully ✅");
     console.log(res.data);
 
+    setForm({
+      animalType: "Dog",
+      severity: "Low",
+      description: "",
+      address: "",
+    });
+
+    setLocation({ lat: "", lng: "" });
+    setImageFile(null);
+    setImagePreview(null);
+
+    // ✅ RESET FILE INPUT (IMPORTANT)
+    document.getElementById("photo-input").value = "";
+
   } catch (err) {
     toast.error("Failed to submit report ❌");
     alert();
