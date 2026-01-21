@@ -48,3 +48,16 @@ export const getMyNgoApplication = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+
+export const getApprovedNgos = async (req, res) => {
+  try {
+    const ngos = await Ngo.find({ status: "Approved" }).sort({
+      createdAt: -1,
+    });
+
+    res.status(200).json(ngos);
+  } catch (error) {
+    console.error("Get NGOs error:", error);
+    res.status(500).json({ message: "Failed to fetch NGOs" });
+  }
+};
