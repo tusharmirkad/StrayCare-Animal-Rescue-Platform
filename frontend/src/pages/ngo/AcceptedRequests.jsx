@@ -112,7 +112,7 @@ const AcceptedRequests = () => {
                   {/* Buttons */}
                   <div className="flex gap-3 mt-4">
                     <button
-                      className="flex-1 bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
+                      className="flex-1 bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 cursor-pointer"
                       onClick={() => alert("Status update coming soon")}
                     >
                       Update Status
@@ -120,7 +120,7 @@ const AcceptedRequests = () => {
 
                     <button
                       onClick={() => handleComplete(r._id)}
-                      className="flex-1 bg-green-700 text-white py-2 rounded-md hover:bg-green-800"
+                      className="flex-1 bg-green-700 text-white py-2 rounded-md hover:bg-green-800 cursor-pointer"
                     >
                       Mark Completed
                     </button>
