@@ -142,6 +142,7 @@ const PendingRequests = () => {
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {requests.map((r) => (
+            console.log("IMAGE URL:", r.imageUrl);
               <div key={r._id} className="bg-white shadow rounded-lg p-4">
                 <img
                    src={`https://straycare-animal-rescue-platform.onrender.com${r.imageUrl}`}
