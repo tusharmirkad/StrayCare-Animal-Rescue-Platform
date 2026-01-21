@@ -51,22 +51,22 @@ export const getMyNgoApplication = async (req, res) => {
 
 export const getApprovedNgos = async (req, res) => {
   try {
-    const ngos = await Ngo.find({ status: "Approved" }).sort({
+    // ✅ FIX: use lowercase status (matches DB)
+    const ngos = await Ngo.find({ status: "approved" }).sort({
       createdAt: -1,
     });
 
-    // ✅ TRANSFORM DATA FOR FRONTEND
-    const formatted = ngos.map((ngo) => ({
+    // ✅ FIX: map fields for frontend
+    const result = ngos.map((ngo) => ({
       _id: ngo._id,
-      name: ngo.ngoName,                // 👈 FIX
+      name: ngo.ngoName,      // 👈 frontend expects `name`
       city: ngo.city,
       phone: ngo.phone,
       email: ngo.email,
-      rating: ngo.rating || 4.5,
-      imageUrl: ngo.logoUrl || null,    // 👈 optional (see next step)
+      rating: 4.5,            // static rating (since no rating system)
     }));
 
-    res.status(200).json(formatted);
+    res.status(200).json(result);
   } catch (error) {
     console.error("Get NGOs error:", error);
     res.status(500).json({ message: "Failed to fetch NGOs" });
