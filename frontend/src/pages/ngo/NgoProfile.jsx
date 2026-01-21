@@ -65,7 +65,7 @@ const NgoProfile = () => {
           <button
             onClick={() => setIsEditing(!isEditing)}
             className="bg-green-700 text-white px-5 py-2 rounded-md 
-            hover:bg-green-800 transition flex items-center gap-2 mx-auto md:mx-0"
+            hover:bg-green-800 transition flex items-center gap-2 mx-auto md:mx-0 cursor-pointer"
           >
             <FaEdit />
             {isEditing ? "Cancel" : "Edit Profile"}
