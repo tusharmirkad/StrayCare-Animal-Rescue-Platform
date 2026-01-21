@@ -87,6 +87,7 @@ import React, { useEffect, useState } from "react";
 import NgoSidebar from "../../components/ngo/NgoSidebar";
 import NgoTopbar from "../../components/ngo/NgoTopbar";
 import useApi from "../../utils/api";
+import { toast } from "react-toastify";
 
 const PendingRequests = () => {
   const api = useApi(); // ✅ IMPORTANT
@@ -101,6 +102,7 @@ const PendingRequests = () => {
         setRequests(res.data || []);
       } catch (error) {
         console.error("Fetch pending error:", error);
+         toast.error("Failed to load pending requests ❌");
       } finally {
         setLoading(false);
       }
@@ -115,9 +117,11 @@ const PendingRequests = () => {
 
       // ✅ REMOVE accepted request from UI instantly
       setRequests(prev => prev.filter(r => r._id !== id))
+      toast.success("Request accepted successfully ✅");
 
     } catch (error) {
       console.error("Accept failed:", error);
+      toast.error("Failed to accept request ❌");
     }
   };
 
@@ -140,7 +144,7 @@ const PendingRequests = () => {
             {requests.map((r) => (
               <div key={r._id} className="bg-white shadow rounded-lg p-4">
                 <img
-                  src={`http://localhost:5000${r.imageUrl}`}
+                  src={r.imageUrl}
                   className="w-full h-48 object-cover rounded-md"
                 />
 
