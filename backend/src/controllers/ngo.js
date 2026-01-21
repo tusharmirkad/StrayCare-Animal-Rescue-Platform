@@ -55,9 +55,21 @@ export const getApprovedNgos = async (req, res) => {
       createdAt: -1,
     });
 
-    res.status(200).json(ngos);
+    // ✅ TRANSFORM DATA FOR FRONTEND
+    const formatted = ngos.map((ngo) => ({
+      _id: ngo._id,
+      name: ngo.ngoName,                // 👈 FIX
+      city: ngo.city,
+      phone: ngo.phone,
+      email: ngo.email,
+      rating: ngo.rating || 4.5,
+      imageUrl: ngo.logoUrl || null,    // 👈 optional (see next step)
+    }));
+
+    res.status(200).json(formatted);
   } catch (error) {
     console.error("Get NGOs error:", error);
     res.status(500).json({ message: "Failed to fetch NGOs" });
   }
 };
+
