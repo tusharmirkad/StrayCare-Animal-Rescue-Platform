@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import AdminSidebar from "../../components/admin/AdminSidebar";
 import AdminTopbar from "../../components/admin/AdminTopbar";
 import useApi from "../../utils/api";
-
+import { toast } from "react-toastify";
 
 const RescueRequestsAdmin = () => {
 
@@ -18,6 +18,7 @@ const RescueRequestsAdmin = () => {
         const res = await api.get("/api/admin/rescue-requests");
         setRequests(res.data);
       } catch (err) {
+        
         console.error("Error loading rescue requests:", err);
       }
       setLoading(false);
@@ -32,11 +33,10 @@ const RescueRequestsAdmin = () => {
       await api.patch(`/rescue/${id}/status`, {
         status: "verified",
       });
-
-      alert("Request marked as Verified");
+      toast.success("Request marked as Verified ✅");
     } catch (err) {
       console.error(err);
-      alert("Verification failed");
+       toast.error("Verification failed ❌");
     }
   };
 
@@ -50,10 +50,11 @@ const RescueRequestsAdmin = () => {
       });
 
       setRequests((prev) => prev.filter((r) => r._id !== id));
-      alert("Request rejected");
+       toast.error("Request rejected ❌")
+      
     } catch (err) {
       console.error(err);
-      alert("Error rejecting request");
+       toast.error("Error rejecting request ❌")
     }
   };
 
