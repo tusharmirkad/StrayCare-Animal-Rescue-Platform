@@ -9,6 +9,7 @@ import {
   FaEdit,
   FaCheckCircle,
 } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const NgoProfile = () => {
   const { user } = useUser();
@@ -29,7 +30,7 @@ const NgoProfile = () => {
 
   const saveChanges = () => {
     setIsEditing(false);
-    alert("Profile updated successfully!");
+    toast.success("Profile updated successfully! ✅");
   };
 
   return (
