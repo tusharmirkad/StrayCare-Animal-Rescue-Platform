@@ -14,7 +14,7 @@ import rescueRoutes from "./src/routes/rescueRoutes.js";
 import ngoRequestRoutes from "./src/routes/ngoRequests.js";
 import ngoDashboardRoutes from "./src/routes/ngoDashboard.js";
 import uploadRoutes from "./src/routes/upload.js";
-import ngosRoutes from "./src/routes/ngos.js";
+import ngosNewRoutes from "./src/routes/ngos.js";
 
 
 dotenv.config();
@@ -32,7 +32,7 @@ app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 // ===== API Routes =====
 app.use("/api/reports", reportRoutes);
 app.use("/api/ngo", ngoRoutes);
-app.use("/api/ngos", ngosRoutes);
+app.use("/api/ngos", ngosNewRoutes);
 app.use("/api/admin", adminNgoRoutes);
 
 app.use("/api/rescues", rescueRoutes);
