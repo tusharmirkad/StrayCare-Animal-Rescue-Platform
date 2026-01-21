@@ -30,6 +30,7 @@ app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 // ===== API Routes =====
 app.use("/api/reports", reportRoutes);
 app.use("/api/ngo", ngoRoutes);
+app.use("/api/ngos", ngoRoutes);
 app.use("/api/admin", adminNgoRoutes);
 
 app.use("/api/rescues", rescueRoutes);
