@@ -31,7 +31,9 @@ const NGOs = () => {
   useEffect(() => {
     const fetchNgos = async () => {
       try {
+       console.log("Calling NGO API...");
         const res = await api.get("/api/ngo");
+        console.log("NGO RESPONSE:", res.data);
         setNgos(res.data || []);
       } catch (err) {
         console.error("Fetch NGOs error:", err);
