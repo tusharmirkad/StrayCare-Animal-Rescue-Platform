@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FaCamera, FaMapMarkerAlt } from "react-icons/fa";
 import Navbar from "../components/navbar.jsx";
 import useApi from "../utils/api";
+import { toast } from "react-toastify";
 
 import { useUser } from "@clerk/clerk-react";
 
@@ -39,7 +40,7 @@ const { user } = useUser();
         });
       });
     } else {
-      alert("Geolocation not supported");
+      toast.error("Geolocation not supported ❌")
     }
   };
 
@@ -64,11 +65,12 @@ const { user } = useUser();
       headers: { "Content-Type": "multipart/form-data" },
     });
 
-    alert("Report submitted successfully!");
+     toast.success("Report Submitted Successfully ✅");
     console.log(res.data);
 
   } catch (err) {
-    alert("Failed to submit report");
+    toast.error("Failed to submit report ❌");
+    alert();
     console.error(err);
   }
 };
