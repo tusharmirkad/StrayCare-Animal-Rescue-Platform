@@ -161,7 +161,8 @@ const PendingRequests = () => {
                 </p>
 
                 <button
-                  onClick={() => handleAccept(r._id)}
+                  type="button"
+                  onClick={() => handleAccept(id)}
                   className="mt-3 w-full bg-green-700 text-white py-2 rounded cursor-pointer"
                 >
                   Accept
