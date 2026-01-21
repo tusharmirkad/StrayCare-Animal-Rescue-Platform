@@ -7,6 +7,6 @@ const router = express.Router();
 
 router.post("/apply", requireAuth, upload.single("document"), applyNgo);
 router.get("/my", requireAuth, getMyNgoApplication);
-router.get("/", requireAuth, getApprovedNgos);
+router.get("/", getApprovedNgos);
 
 export default router;
