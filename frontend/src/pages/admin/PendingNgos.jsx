@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import AdminSidebar from "../../components/admin/AdminSidebar";
 import AdminTopbar from "../../components/admin/AdminTopbar";
 import useApi  from "../../utils/api";
+import { toast } from "react-toastify";
 
 const PendingNgos = () => {
   const api = useApi();
@@ -28,10 +29,12 @@ const PendingNgos = () => {
     try {
       await api.post(`/admin/approve-ngo/${id}`);
       setApplications((prev) => prev.filter((a) => a._id !== id));
-      alert("NGO approved successfully");
+       toast.success("NGO approved successfully ✅");
+      
     } catch (err) {
       console.error(err);
-      alert("Approval failed");
+      toast.error("Approval failed ❌");
+    
     }
   };
 
@@ -39,10 +42,10 @@ const PendingNgos = () => {
     try {
       await api.post(`/admin/reject-ngo/${id}`);
       setApplications((prev) => prev.filter((a) => a._id !== id));
-      alert("NGO rejected");
+      toast.success("NGO rejected");
     } catch (err) {
       console.error(err);
-      alert("Rejection failed");
+      toast.error("Rejection failed ❌");
     }
   };
 
