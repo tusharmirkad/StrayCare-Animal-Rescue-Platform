@@ -5,6 +5,7 @@ import useApi from "../../utils/api";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
+
 const ApplyNgo = () => {
   const api = useApi();
   const navigate = useNavigate();
@@ -43,7 +44,8 @@ const ApplyNgo = () => {
       fd.append("document", form.document);
     }
 
-    await api.post("/api/ngo/apply", fd);
+    await api.post("/ngo/apply", fd);
+
      toast.success("Your NGO application has been submitted successfully! ✅");
 
     // reset form
@@ -60,7 +62,7 @@ const ApplyNgo = () => {
 
   } catch (error) {
     console.error("Apply NGO error:", error);
-    alert(
+    toast.error(
       error.response?.data?.message || "Failed to submit NGO application"
     );
   }
