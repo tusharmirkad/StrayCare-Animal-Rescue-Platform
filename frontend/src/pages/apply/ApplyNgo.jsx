@@ -35,6 +35,7 @@ const ApplyNgo = () => {
   try {
     const fd = new FormData();
     fd.append("ngoName", form.ngoName);
+    fd.append("email", user?.primaryEmailAddress?.emailAddress || "");
     fd.append("phone", form.phone);
     fd.append("city", form.city);
     fd.append("address", form.address);
@@ -44,7 +45,7 @@ const ApplyNgo = () => {
       fd.append("document", form.document);
     }
 
-    await api.post("/ngo/apply", fd);
+    await api.post("/api/ngo/apply", fd);
 
      toast.success("Your NGO application has been submitted successfully! ✅");
 

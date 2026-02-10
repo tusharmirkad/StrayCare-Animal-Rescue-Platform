@@ -5,7 +5,7 @@ const useApi = () => {
   const { getToken } = useAuth();
 
   const api = axios.create({
-    baseURL: "https://straycare-animal-rescue-platform.onrender.com", // ✅ IMPORTANT
+    baseURL: import.meta.env.VITE_API_URL || "https://straycare-animal-rescue-platform.onrender.com",
   });
 
   api.interceptors.request.use(async (config) => {

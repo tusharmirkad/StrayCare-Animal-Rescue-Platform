@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import AdminSidebar from "../../components/admin/AdminSidebar";
 import AdminTopbar from "../../components/admin/AdminTopbar";
 import  useApi  from "../../utils/api";
+import { toast } from "react-toastify";
 
 const ApprovedNgos = () => {
   const api = useApi(); 
   const [ngos, setNgos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [removingId, setRemovingId] = useState(null);
 
   // Fetch approved NGOs
   useEffect(() => {
@@ -27,13 +29,16 @@ const ApprovedNgos = () => {
   const removeNgo = async (id) => {
     if (!window.confirm("Are you sure you want to remove this NGO?")) return;
 
+    setRemovingId(id);
     try {
-      await api.delete(`/admin/remove-ngo/${id}`);
+      await api.delete(`/api/admin/remove-ngo/${id}`);
       setNgos((prev) => prev.filter((ngo) => ngo._id !== id));
-      alert("NGO removed successfully.");
+      toast.success("NGO removed successfully ✅");
     } catch (err) {
       console.error(err);
-      alert("Failed to remove NGO.");
+      toast.error("Failed to remove NGO ❌");
+    } finally {
+      setRemovingId(null);
     }
   };
 
@@ -112,9 +117,10 @@ const ApprovedNgos = () => {
 
                   <button
                     onClick={() => removeNgo(ngo._id)}
-                    className="flex-1 bg-red-600 text-white py-2 rounded hover:bg-red-700 transition"
+                    disabled={removingId === ngo._id}
+                    className={`flex-1 py-2 rounded transition ${removingId === ngo._id ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-600 text-white hover:bg-red-700'}`}
                   >
-                    Remove
+                    {removingId === ngo._id ? "Removing..." : "Remove"}
                   </button>
                 </div>
               </div>

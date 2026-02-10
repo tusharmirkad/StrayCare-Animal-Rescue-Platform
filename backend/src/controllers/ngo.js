@@ -20,7 +20,7 @@ export const applyNgo = async (req, res) => {
     const ngo = await Ngo.create({
       userId,
       ngoName: req.body.ngoName,
-      email: req.auth.sessionClaims?.email,
+      email: req.body.email || req.auth.sessionClaims?.email,
       phone: req.body.phone,
       city: req.body.city,
       address: req.body.address,

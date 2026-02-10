@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { FaCamera, FaMapMarkerAlt } from "react-icons/fa";
 import Navbar from "../components/navbar.jsx";
 import useApi from "../utils/api";
@@ -14,14 +14,18 @@ const { user } = useUser();
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
 
-  const [form, setForm] = useState({
+  const initialForm = {
     animalType: "Dog",
     severity: "Low",
     description: "",
     address: "",
-  });
+  };
 
-  const [location, setLocation] = useState({ lat: "", lng: "" });
+  const [form, setForm] = useState(initialForm);
+
+  const [location, setLocation] = useState({ lat: null, lng: null });
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const fileInputRef = useRef(null);
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
@@ -34,9 +38,9 @@ const { user } = useUser();
   const fetchLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((pos) => {
-        setLocation({
-          lat: pos.coords.latitude,
-          lng: pos.coords.longitude,
+            setLocation({
+          lat: Number(pos.coords.latitude),
+          lng: Number(pos.coords.longitude),
         });
       });
     } else {
@@ -62,29 +66,29 @@ const { user } = useUser();
     if (imageFile) fd.append("image", imageFile);
 
     const res = await api.post("/api/reports", fd, {
-      headers: { "Content-Type": "multipart/form-data" },
+      onUploadProgress: (progressEvent) => {
+        if (progressEvent.total) {
+          const percent = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+          setUploadProgress(percent);
+        }
+      },
     });
 
      toast.success("Report Submitted Successfully ✅");
     console.log(res.data);
 
-    setForm({
-      animalType: "Dog",
-      severity: "Low",
-      description: "",
-      address: "",
-    });
-
-    setLocation({ lat: "", lng: "" });
+    // Reset form and UI
+    setForm(initialForm);
+    setLocation({ lat: null, lng: null });
     setImageFile(null);
     setImagePreview(null);
+    setUploadProgress(0);
 
-    // ✅ RESET FILE INPUT (IMPORTANT)
-    document.getElementById("photo-input").value = "";
+    // Reset file input via ref
+    if (fileInputRef.current) fileInputRef.current.value = null;
 
   } catch (err) {
     toast.error("Failed to submit report ❌");
-    alert();
     console.error(err);
   }
 };
@@ -129,6 +133,7 @@ const { user } = useUser();
                   accept="image/*"
                   className="hidden"
                   id="photo-input"
+                  ref={fileInputRef}
                   onChange={handleImageUpload}
                 />
 
@@ -209,7 +214,7 @@ const { user } = useUser();
                 </button>
 
                 <div className="text-gray-700">
-                  {location.lat ? (
+                  {(location.lat != null && location.lng != null) ? (
                     <p>
                       <strong>Lat:</strong> {location.lat.toFixed(5)} |{" "}
                       <strong>Lng:</strong> {location.lng.toFixed(5)}

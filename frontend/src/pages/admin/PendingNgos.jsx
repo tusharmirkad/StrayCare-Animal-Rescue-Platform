@@ -27,7 +27,7 @@ const PendingNgos = () => {
 
   const approveNgo = async (id) => {
     try {
-      await api.post(`/admin/approve-ngo/${id}`);
+      await api.post(`/api/admin/approve-ngo/${id}`);
       setApplications((prev) => prev.filter((a) => a._id !== id));
        toast.success("NGO approved successfully ✅");
       
@@ -40,7 +40,7 @@ const PendingNgos = () => {
 
   const rejectNgo = async (id) => {
     try {
-      await api.post(`/admin/reject-ngo/${id}`);
+      await api.post(`/api/admin/reject-ngo/${id}`);
       setApplications((prev) => prev.filter((a) => a._id !== id));
       toast.success("NGO rejected");
     } catch (err) {
