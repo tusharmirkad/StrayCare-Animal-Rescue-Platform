@@ -10,6 +10,11 @@ const useApi = () => {
 
   api.interceptors.request.use(async (config) => {
     const token = await getToken();
+    // Debug: log whether a token was obtained (do not print full token in console)
+    try {
+      console.log("useApi: token present:", !!token);
+    } catch (e) {}
+
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

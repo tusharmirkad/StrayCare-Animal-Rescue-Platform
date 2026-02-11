@@ -98,28 +98,28 @@ const { user } = useUser();
     <>
       <Navbar />
 
-      <div className="min-h-screen bg-gray-50 py-10 px-4">
-        <div className="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-md">
+      <div className="min-h-screen bg-gray-50 py-6 px-3 sm:py-10 sm:px-4">
+        <div className="max-w-4xl mx-auto bg-white p-4 sm:p-8 rounded-lg shadow-md">
 
-          <h1 className="text-3xl font-bold text-green-700 mb-6 text-center">
+          <h1 className="text-2xl sm:text-3xl font-bold text-green-700 mb-6 text-center">
             Report Injured Animal
           </h1>
 
           {/* -------- FORM -------- */}
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
 
             {/* Upload Photo */}
             <div>
-              <label className="block text-gray-700 font-semibold mb-2">
+              <label className="block text-sm sm:text-base text-gray-700 font-semibold mb-2">
                 Upload Photo
               </label>
 
-              <div className="border-2 border-dashed border-gray-300 p-6 rounded-md flex flex-col items-center justify-center cursor-pointer hover:border-green-600 transition">
+              <div className="border-2 border-dashed border-gray-300 p-4 sm:p-6 rounded-md flex flex-col items-center justify-center cursor-pointer hover:border-green-600 transition">
                 {imagePreview ? (
                   <img
                     src={imagePreview}
                     alt="Preview"
-                    className="w-40 h-40 object-cover rounded-md"
+                    className="w-32 h-32 sm:w-40 sm:h-40 object-cover rounded-md"
                   />
                 ) : (
                   <div className="text-center">
@@ -148,7 +148,7 @@ const { user } = useUser();
 
             {/* Animal Type */}
             <div>
-              <label className="block font-semibold text-gray-700 mb-2">
+              <label className="block text-sm sm:text-base font-semibold text-gray-700 mb-2">
                 Animal Type
               </label>
               <select
@@ -156,7 +156,7 @@ const { user } = useUser();
                 onChange={(e) =>
                   setForm({ ...form, animalType: e.target.value })
                 }
-                className="w-full border border-gray-300 p-3 rounded-md"
+                className="w-full border border-gray-300 p-2.5 sm:p-3 rounded-md text-sm sm:text-base"
               >
                 <option>Dog</option>
                 <option>Cat</option>
@@ -167,7 +167,7 @@ const { user } = useUser();
 
             {/* Severity */}
             <div>
-              <label className="block font-semibold text-gray-700 mb-2">
+              <label className="block text-sm sm:text-base font-semibold text-gray-700 mb-2">
                 Severity
               </label>
               <select
@@ -175,7 +175,7 @@ const { user } = useUser();
                 onChange={(e) =>
                   setForm({ ...form, severity: e.target.value })
                 }
-                className="w-full border border-gray-300 p-3 rounded-md"
+                className="w-full border border-gray-300 p-2.5 sm:p-3 rounded-md text-sm sm:text-base"
               >
                 <option>Low</option>
                 <option>Medium</option>
@@ -185,7 +185,7 @@ const { user } = useUser();
 
             {/* Description */}
             <div>
-              <label className="block font-semibold text-gray-700 mb-2">
+              <label className="block text-sm sm:text-base font-semibold text-gray-700 mb-2">
                 Description
               </label>
               <textarea
@@ -195,25 +195,25 @@ const { user } = useUser();
                   setForm({ ...form, description: e.target.value })
                 }
                 placeholder="Describe the condition of the animal..."
-                className="w-full border border-gray-300 p-3 rounded-md resize-none"
+                className="w-full border border-gray-300 p-2.5 sm:p-3 rounded-md resize-none text-sm sm:text-base"
               ></textarea>
             </div>
 
             {/* Auto Location */}
             <div>
-              <label className="block font-semibold text-gray-700 mb-2">
+              <label className="block text-sm sm:text-base font-semibold text-gray-700 mb-2">
                 Auto Location
               </label>
 
-              <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+              <div className="flex flex-col gap-3 items-start sm:items-center sm:flex-row sm:gap-4">
                 <button
                   onClick={fetchLocation}
-                  className="flex items-center gap-2 bg-green-700 text-white px-4 py-2 rounded-md cursor-pointer"
+                  className="w-full sm:w-auto flex items-center justify-center gap-2 bg-green-700 text-white px-4 py-2 rounded-md cursor-pointer text-sm sm:text-base"
                 >
                   <FaMapMarkerAlt /> Fetch My Location
                 </button>
 
-                <div className="text-gray-700">
+                <div className="text-gray-700 text-sm sm:text-base w-full sm:w-auto">
                   {(location.lat != null && location.lng != null) ? (
                     <p>
                       <strong>Lat:</strong> {location.lat.toFixed(5)} |{" "}
@@ -228,7 +228,7 @@ const { user } = useUser();
 
             {/* Manual Address */}
             <div>
-              <label className="block font-semibold text-gray-700 mb-2">
+              <label className="block text-sm sm:text-base font-semibold text-gray-700 mb-2">
                 Enter Address (Optional)
               </label>
               <input
@@ -238,7 +238,7 @@ const { user } = useUser();
                   setForm({ ...form, address: e.target.value })
                 }
                 placeholder="Type the address manually..."
-                className="w-full border border-gray-300 p-3 rounded-md"
+                className="w-full border border-gray-300 p-2.5 sm:p-3 rounded-md text-sm sm:text-base"
               />
             </div>
 
@@ -246,7 +246,7 @@ const { user } = useUser();
             <div className="text-center pt-4">
               <button
                 onClick={handleSubmit}
-                className="bg-green-700 text-white w-full sm:w-1/2 py-3 rounded-md text-lg hover:bg-green-800 transition cursor-pointer"
+                className="w-full bg-green-700 text-white py-2.5 sm:py-3 rounded-md text-base sm:text-lg font-medium hover:bg-green-800 transition cursor-pointer"
               >
                 Submit Report
               </button>

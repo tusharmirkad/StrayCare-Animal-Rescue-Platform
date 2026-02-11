@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   FaPhoneAlt,
   FaEnvelope,
@@ -8,8 +8,57 @@ import {
   FaFacebook,
 } from "react-icons/fa";
 import Navbar from "../components/navbar.jsx";
+import useApi from "../utils/api";
+import { toast } from "react-toastify";
 
 const Contact = () => {
+  const api = useApi();
+
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!form.name || !form.email || !form.subject || !form.message) {
+      toast.error("Please fill in all fields ❌");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      await api.post("/api/contact", form);
+      toast.success("Message sent successfully! We'll be in touch soon ✅");
+
+      // Reset form
+      setForm({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error("Contact submission error:", error);
+      toast.error(
+        error.response?.data?.message || "Failed to send message ❌"
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <Navbar />
@@ -27,17 +76,20 @@ const Contact = () => {
                 Send Us a Message
               </h2>
               <p className="text-gray-600 mb-6">
-                Have questions, feedback, or want to collaborate? We’d love to
+                Have questions, feedback, or want to collaborate? We'd love to
                 hear from you.
               </p>
 
-              <form className="space-y-5">
+              <form className="space-y-5" onSubmit={handleSubmit}>
                 <div>
                   <label className="block text-gray-700 font-semibold mb-2">
                     Full Name
                   </label>
                   <input
                     type="text"
+                    name="name"
+                    value={form.name}
+                    onChange={handleChange}
                     placeholder="Enter your name"
                     className="w-full border border-gray-300 p-3 rounded-md focus:ring-2 focus:ring-green-700"
                   />
@@ -49,6 +101,9 @@ const Contact = () => {
                   </label>
                   <input
                     type="email"
+                    name="email"
+                    value={form.email}
+                    onChange={handleChange}
                     placeholder="Enter your email"
                     className="w-full border border-gray-300 p-3 rounded-md focus:ring-2 focus:ring-green-700"
                   />
@@ -60,7 +115,10 @@ const Contact = () => {
                   </label>
                   <input
                     type="text"
-                    placeholder="What’s this about?"
+                    name="subject"
+                    value={form.subject}
+                    onChange={handleChange}
+                    placeholder="What's this about?"
                     className="w-full border border-gray-300 p-3 rounded-md focus:ring-2 focus:ring-green-700"
                   />
                 </div>
@@ -70,14 +128,21 @@ const Contact = () => {
                     Message
                   </label>
                   <textarea
+                    name="message"
+                    value={form.message}
+                    onChange={handleChange}
                     rows="5"
                     placeholder="Write your message..."
                     className="w-full border border-gray-300 p-3 rounded-md resize-none focus:ring-2 focus:ring-green-700"
                   ></textarea>
                 </div>
 
-                <button className="w-full bg-green-700 text-white py-3 rounded-md text-lg font-semibold hover:bg-green-800 transition">
-                  Send Message
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full bg-green-700 text-white py-3 rounded-md text-lg font-semibold hover:bg-green-800 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
+                >
+                  {loading ? "Sending..." : "Send Message"}
                 </button>
               </form>
             </div>
@@ -127,16 +192,38 @@ const Contact = () => {
               </div>
 
               {/* MAP EMBED (GOOGLE MAPS) */}
-              <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-                <iframe
-                  title="map"
-                  width="100%"
-                  height="300"
-                  className="rounded-lg"
-                  loading="lazy"
-                  allowFullScreen
-                  src="https://www.google.com/maps/embed/v1/place?key=YOUR_GOOGLE_API_KEY&q=Mumbai,Maharashtra"
-                ></iframe>
+              <div className="bg-white shadow-lg rounded-lg p-6">
+                <h3 className="text-xl font-semibold mb-3">Resources & How to Help</h3>
+                <p className="text-gray-600 mb-4">Quick actions and resources for urgent animal assistance.</p>
+
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div className="border p-4 rounded">
+                    <h4 className="font-bold text-green-700">Emergency Hotline</h4>
+                    <p className="text-gray-700">Call our 24/7 helpline: <strong>+91 99999 99999</strong></p>
+                    <p className="text-sm text-gray-500 mt-2">For life-threatening situations, call immediately.</p>
+                  </div>
+
+                  <div className="border p-4 rounded">
+                    <h4 className="font-bold text-green-700">Volunteer</h4>
+                    <p className="text-gray-700">Join our rescue volunteers to make a difference.</p>
+                    <a href="/apply/ngo" className="inline-block mt-2 text-sm text-blue-600 hover:underline">Sign up to volunteer</a>
+                  </div>
+
+                  <div className="border p-4 rounded">
+                    <h4 className="font-bold text-green-700">Donate</h4>
+                    <p className="text-gray-700">Support rescue operations and medical care.</p>
+                    <a href="/donate" className="inline-block mt-2 text-sm text-blue-600 hover:underline">Donate now</a>
+                  </div>
+
+                  <div className="border p-4 rounded">
+                    <h4 className="font-bold text-green-700">Safety Tips</h4>
+                    <ul className="text-sm text-gray-700 list-disc ml-5">
+                      <li>Approach slowly and avoid sudden movements.</li>
+                      <li>Keep kids and pets away until help arrives.</li>
+                      <li>Use a towel or blanket to safely contain small animals.</li>
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -177,6 +264,6 @@ const Contact = () => {
       </div>
     </>
   );
-};
+}
 
 export default Contact;

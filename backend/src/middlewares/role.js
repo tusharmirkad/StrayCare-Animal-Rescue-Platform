@@ -5,15 +5,34 @@ import { ClerkExpressRequireAuth } from "@clerk/clerk-sdk-node";
 export const requireAdmin = [
   ClerkExpressRequireAuth(),
   (req, res, next) => {
-    const role = req.auth?.sessionClaims?.publicMetadata?.role;
+    // Log incoming auth header and req.auth for debugging
+    console.log("AUTH HEADER:", req.headers?.authorization);
+    console.log("REQ.AUTH:", req.auth);
+    (async () => {
+      try {
+        // Prefer fetching user metadata directly from Clerk using userId
+        const userId = req.auth?.userId;
+        if (!userId) {
+          console.log("No userId in req.auth");
+          return res.status(401).json({ message: "Unauthorized" });
+        }
 
-    console.log("ADMIN ROLE:", role); // 🔍 debug
+        const clerkUser = await clerkClient.users.getUser(userId);
+        console.log("CLERK USER PUBLIC METADATA:", clerkUser.publicMetadata);
 
-    if (role !== "admin") {
-      return res.status(401).json({ message: "Admin access required" });
-    }
+        const role = clerkUser.publicMetadata?.role || req.auth?.sessionClaims?.publicMetadata?.role;
+        console.log("ADMIN ROLE:", role);
 
-    next();
+        if (role !== "admin") {
+          return res.status(401).json({ message: "Admin access required" });
+        }
+
+        next();
+      } catch (err) {
+        console.error("Error verifying admin role:", err);
+        return res.status(500).json({ message: "Internal auth error" });
+      }
+    })();
   },
 ];
 

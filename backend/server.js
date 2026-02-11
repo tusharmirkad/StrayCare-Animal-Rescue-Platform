@@ -15,6 +15,7 @@ import ngoRequestRoutes from "./src/routes/ngoRequests.js";
 import ngoDashboardRoutes from "./src/routes/ngoDashboard.js";
 import uploadRoutes from "./src/routes/upload.js";
 import ngosNewRoutes from "./src/routes/ngos.js";
+import contactRoutes from "./src/routes/contact.js";
 
 
 dotenv.config();
@@ -39,6 +40,7 @@ app.use("/api/rescues", rescueRoutes);
 app.use("/api/ngo/requests", ngoRequestRoutes);
 app.use("/api/ngo/dashboard-stats", ngoDashboardRoutes);
 app.use("/api/upload", uploadRoutes);
+app.use("/api/contact", contactRoutes);
 
 // Root
 app.get("/", (req, res) => {

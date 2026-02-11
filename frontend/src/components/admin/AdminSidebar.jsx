@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FaHome, FaUsers, FaList, FaCheckCircle } from "react-icons/fa";
+import { FaHome, FaUsers, FaList, FaCheckCircle, FaEnvelope } from "react-icons/fa";
 
 const AdminSidebar = () => {
   return (
@@ -35,9 +35,16 @@ const AdminSidebar = () => {
         >
           <FaList /> Rescue Requests
         </Link>
+
+        <Link
+          to="/admin/messages"
+          className="flex items-center gap-3 hover:text-green-700"
+        >
+          <FaEnvelope /> Contact Messages
+        </Link>
       </nav>
     </div>
   );
-};
+}
 
 export default AdminSidebar;

@@ -19,12 +19,21 @@ const NGOs = () => {
   const [ngos, setNgos] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // ✅ Fix old image URLs (temporary safety)
-  const getImageUrl = (url) => {
-    if (!url) return "https://via.placeholder.com/400x300?text=NGO";
-    return url
-      .replace("http//", "http://")
-      .replace("https//", "https://");
+  // ✅ Fix old image URLs (temporary safety). If no image provided,
+  // generate a deterministic avatar based on the NGO name so newly
+  // added NGOs automatically get a unique image.
+  const getImageUrl = (url, name) => {
+    if (url && url.toString().trim() !== "") {
+      return url
+        .toString()
+        .replace("http//", "http://")
+        .replace("https//", "https://");
+    }
+
+    const seed = encodeURIComponent((name || "NGO").trim());
+    // Use DiceBear initials avatar to generate a simple SVG avatar.
+    // Background and color chosen to match the green theme.
+    return `https://avatars.dicebear.com/api/initials/${seed}.svg?background=%23ecfccb&color=%230f766e`;
   };
 
   // ✅ Fetch NGOs from DB
@@ -116,7 +125,7 @@ const NGOs = () => {
                   className="bg-white rounded-xl shadow-md hover:shadow-xl transition p-5 border"
                 >
                   <img
-                    src={getImageUrl(ngo.imageUrl)}
+                    src={getImageUrl(ngo.imageUrl, ngo.name)}
                     alt={ngo.name}
                     className="w-full h-48 object-cover rounded-lg mb-4"
                   />

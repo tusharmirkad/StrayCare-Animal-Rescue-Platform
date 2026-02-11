@@ -34,6 +34,7 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import PendingNgos from "./pages/admin/PendingNgos";
 import ApprovedNgos from "./pages/admin/ApprovedNgos";
 import RescueRequestsAdmin from "./pages/admin/RescueRequestsAdmin";
+import ManageMessages from "./pages/admin/ManageMessages";
 
 function App() {
   return (
@@ -147,6 +148,15 @@ function App() {
           element={
             <AdminProtected>
               <RescueRequestsAdmin />
+            </AdminProtected>
+          }
+        />
+
+        <Route
+          path="/admin/messages"
+          element={
+            <AdminProtected>
+              <ManageMessages />
             </AdminProtected>
           }
         />
