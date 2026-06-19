@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { FaCamera, FaMapMarkerAlt } from "react-icons/fa";
-import Navbar from "../components/navbar.jsx";
+import Navbar from "../components/navbar";
 import useApi from "../utils/api";
 import { toast } from "react-toastify";
 
