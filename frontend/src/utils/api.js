@@ -9,7 +9,7 @@ const useApi = () => {
   // - if VITE_API_URL points to localhost and the app is loaded from a LAN IP (mobile),
   //   replace 'localhost' with `window.location.hostname` so the mobile device hits the dev machine
   const envUrl = import.meta.env.VITE_API_URL;
-  let baseURL = envUrl || "https://straycare-animal-rescue-platform.onrender.com";
+  let baseURL = envUrl || "https://straycare-animal-rescue-platform-backend.onrender.com";
 
   try {
     if (typeof window !== "undefined" && envUrl && envUrl.includes("localhost")) {
