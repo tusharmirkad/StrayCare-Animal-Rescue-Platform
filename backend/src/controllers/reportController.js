@@ -64,6 +64,7 @@ export const getMyReports = async (req, res) => {
     const limit = parseInt(req.query.limit || "20");
     const skip = (page - 1) * limit;
 
+     console.log("Fetching reports for userId:", userId) ;
     const [total, reports] = await Promise.all([
       Report.countDocuments({ reporterId: userId }),
       Report.find({ reporterId: userId })
@@ -71,6 +72,8 @@ export const getMyReports = async (req, res) => {
         .skip(skip)
         .limit(limit),
     ]);
+
+  console.log("Fetching reports for userId:", userId);
 
     res.json({ success: true, total, page, limit, data: reports });
   } catch (err) {

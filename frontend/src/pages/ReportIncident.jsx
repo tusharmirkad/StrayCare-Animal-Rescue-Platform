@@ -88,8 +88,16 @@ const { user } = useUser();
     if (fileInputRef.current) fileInputRef.current.value = null;
 
   } catch (err) {
-    toast.error("Failed to submit report ❌");
-    console.error(err);
+    console.error("Submit error:", err);
+
+  if (err.response) {
+    console.log("Response data:", err.response.data);
+    console.log("Status:", err.response.status);
+
+    toast.error(err.response.data.message || "Failed to submit report ❌");
+  } else {
+    toast.error("Network error");
+  }
   }
 };
 
